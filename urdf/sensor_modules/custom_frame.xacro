@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="sensor_frames">
+
+  <xacro:arg name="tf_prefix" default=""/>
+
+
+<!-- Custom Frame -->
+
+  <link
+    name="custom_frame">
+    <inertial>
+      <origin
+        xyz="0.0175003137736914 0.678921620418595 0.00264925906989213"
+        rpy="0 0 0" />
+      <mass
+        value="40.4157134772436" />
+      <inertia
+        ixx="7.48897365330651"
+        ixy="-0.0425585488273976"
+        ixz="-2.57842450254423E-08"
+        iyy="2.74354389531607"
+        iyz="8.03161016390214E-08"
+        izz="6.43033770095578" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://custom_frame/meshes/frame.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="-1.5708 0 0" />
+      <geometry>
+        <mesh
+          filename="package://custom_frame/meshes/frame.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="(arg tf_prefix)custom_frame_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="custom_frame"/>
+    <origin xyz="0 0 2.35" rpy="0 0 0"/>
+  </joint>
+
+</robot>
