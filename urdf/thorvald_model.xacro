@@ -11,7 +11,7 @@
      - common parameters to a config file?
 -->
 
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="thorvald_ii">
+  <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="thorvald_ii">
   <xacro:arg name="robot_name" default=""/>
   <xacro:arg name="tf_prefix" default=""/>
   <xacro:arg name="robot_config" default="$(find thorvald_description)/config/thorvald_ii_4wd4ws_std/thorvald_ii_4wd4ws_std.yaml"/>
@@ -1031,6 +1031,8 @@
       <xacro:arg name="tf_prefix" value="${tf_prefix}" />
     </xacro:include>
   </xacro:if>
+
+
 
 </robot>
 

@@ -8,13 +8,20 @@
   <arg name="model_extras" default="" />
   <arg name="datum_file" default=""/>
 
-  <!--param name="robot_tf_prefix" value="$(arg tf_prefix)" /-->
-
+  <param name="robot_tf_prefix" value="$(arg tf_prefix)" />
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
   <!-- state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
-
+  
   <!-- create robot model -->
   <!-- "inorder" so that file process in read order this allows conditional includes -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find thorvald_description)/urdf/thorvald_model.xacro' --inorder datum_file:='$(arg datum_file)' robot_name:='$(arg robot_name)' tf_prefix:='$(arg tf_prefix)' robot_config:='$(arg robot_model)' model_extras:='$(arg model_extras)'" />
+  <param name="robot_description" command="$(find xacro)/xacro 
+  '$(find thorvald_description)/urdf/thorvald_model.xacro' 
+  --inorder 
+  datum_file:='$(arg datum_file)' 
+  robot_name:='$(arg robot_name)' 
+  tf_prefix:='$(arg tf_prefix)' 
+  robot_config:='$(arg robot_model)' 
+  model_extras:='$(arg model_extras)'" />
 
 </launch>

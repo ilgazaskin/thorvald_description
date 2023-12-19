@@ -3,11 +3,8 @@
 
   <xacro:arg name="tf_prefix" default=""/>
 
-
-<!-- Custom Frame -->
-
   <link
-    name="custom_frame">
+    name="$(arg tf_prefix)custom_frame">
     <inertial>
       <origin
         xyz="0.0175003137736914 0.678921620418595 0.00264925906989213"
@@ -47,10 +44,134 @@
     </collision>
   </link>
 
-  <joint name="(arg tf_prefix)custom_frame_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="custom_frame"/>
+  <joint name="$(arg tf_prefix)custom_frame_joint" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)custom_frame"/>
     <origin xyz="0 0 2.35" rpy="0 0 0"/>
   </joint>
+
+<!-- GPS Sensor -->
+  
+  <link name="$(arg tf_prefix)gps_frame">
+    <visual>
+      <geometry>
+        <cylinder length="0.025" radius="0.05"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="$(arg tf_prefix)base_sens_gps_frame" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)gps_frame"/>
+    <origin xyz="0.95 0.045 2.325" rpy="0 0 0"/>
+  </joint>
+
+<!-- Laser Sensor Back-->
+
+  <link name="$(arg tf_prefix)laser_back">
+    <visual>
+      <geometry>
+       <mesh
+          scale="0.0015 0.0015 0.0015"
+          filename= "package://thorvald_2dnav/laser_meshes/sick_mrs_1xxx.stl" />      
+        <!-- <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="$(arg tf_prefix)laser_back_frame" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)laser_back"/>
+    <origin xyz="-1.1 -1.1 0.5" rpy="0 0 3.89208"/>
+  </joint>
+
+<!-- Imu Back-->
+
+  <link name="$(arg tf_prefix)imu_link_back">
+
+      <visual>
+      <geometry>
+        <cylinder length="0.015" radius="0.02"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="$(arg tf_prefix)imu_link_back_frame" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)imu_link_back"/>
+    <origin xyz="-1.1 -1.1 0.5" rpy="0 0 3.89208"/> <!-- 3.89208 -->
+  </joint> 
+
+<!-- Laser Sensor Front-->
+
+  <link name="$(arg tf_prefix)laser_front">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry> 
+        <mesh
+          scale="0.0015 0.0015 0.0015"
+          filename= "package://thorvald_2dnav/laser_meshes/sick_mrs_1xxx.stl" />      
+        <!-- <box size="0.10 0.10 0.10"/> -->
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="$(arg tf_prefix)laser_front_frame" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)laser_front"/>
+    <origin xyz="1.1 1.1 0.5" rpy="0 0 0.750492"/>
+  </joint>
+
+<!-- Imu Front-->
+
+  <link name="$(arg tf_prefix)imu_link_front">
+
+    <visual>
+      <geometry>
+        <cylinder length="0.015" radius="0.02"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5"/>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  
+  <joint name="$(arg tf_prefix)imu_link_front_frame" type="fixed">
+    <parent link="$(arg tf_prefix)base_link"/>
+    <child link="$(arg tf_prefix)imu_link_front"/>
+    <origin xyz="1.1 1.1 0.5" rpy="0 0 0.750492"/>
+  </joint>   
 
 </robot>
